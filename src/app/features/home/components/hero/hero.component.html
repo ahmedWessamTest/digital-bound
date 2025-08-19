@@ -1,0 +1,127 @@
+<section
+  id="home"
+  class="relative min-h-screen py-18 lg:py-10 flex items-center justify-center overflow-hidden bg-gradient-to-br from-dark-900 via-dark-800 to-black"
+>
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-transparent"
+    ></div>
+    <div class="hero-pattern"></div>
+  </div>
+
+  <!-- Floating Elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    @for (particle of particles; track $index) {
+    <div
+      class="absolute w-2 h-2 bg-primary-500 rounded-full opacity-20"
+      [style.left.px]="particle.x"
+      [style.top.px]="particle.y"
+      [style.animation-delay.s]="particle.delay"
+      [@floatingParticle]="'animate'"
+    ></div>
+    }
+  </div>
+
+  <!-- Main Content -->
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="space-y-8 animate-on-scroll">
+      <!-- Badge -->
+      <div
+        [@fadeInScale]="'visible'"
+        class="inline-flex items-center px-4 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-400 text-sm font-medium backdrop-blur-sm"
+      >
+        <span
+          class="w-2 h-2 bg-primary-500 rounded-full mr-2 animate-pulse"
+        ></span>
+        Welcome to the Future of Business
+      </div>
+
+      <!-- Main Heading -->
+      <h1
+        [@slideInUp]="'visible'"
+        class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight"
+      >
+        <span class="block text-white mb-2">Transform Your</span>
+        <span class="block gradient-text">Business Today</span>
+      </h1>
+
+      <!-- Subheading -->
+      <p
+        [@slideInUp]="'visible'"
+        class="max-w-3xl mx-auto text-xl md:text-2xl text-gray-300 leading-relaxed"
+      >
+        We deliver cutting-edge solutions that drive growth, innovation, and
+        success for your business in the digital age.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div
+        [@fadeInUp]="'visible'"
+        class="flex relative flex-col sm:flex-row gap-4 justify-center items-center pt-8"
+      >
+        <button
+          class="group cursor-pointer relative px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 btn-hover-effect shadow-lg hover:shadow-primary-500/25"
+          (click)="scrollToSection('contact')"
+        >
+          <span class="relative z-10">Get Started Now</span>
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-500 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          ></div>
+        </button>
+
+        <button
+          class="group cursor-pointer px-8 py-4 border-2 border-gray-600 hover:border-primary-500 text-gray-300 hover:text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-sm"
+          (click)="scrollToSection('about')"
+        >
+          <span class="flex items-center">
+            Learn More
+            <svg
+              class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              ></path>
+            </svg>
+          </span>
+        </button>
+        <div
+          class="absolute -bottom-16 left-1/2 transform -translate-x-1/2 animate-bounce-slow"
+        >
+          <div
+            class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center"
+          >
+            <div
+              class="w-1 h-3 bg-primary-500 rounded-full mt-2 animate-pulse"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats or Features -->
+      <div
+        [@fadeInUp]="'visible'"
+        class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16 max-w-4xl mx-auto"
+      >
+        @for (stat of stats; track $index) {
+        <div
+          class="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 transform hover:scale-105"
+        >
+          <div class="text-3xl md:text-4xl font-bold gradient-text mb-2">
+            {{ stat.value }}
+          </div>
+          <div class="text-gray-400 font-medium">{{ stat.label }}</div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+</section>

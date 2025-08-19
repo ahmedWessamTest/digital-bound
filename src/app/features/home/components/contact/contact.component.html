@@ -1,0 +1,322 @@
+<section id="contact" class="py-20 bg-dark-800 relative overflow-hidden">
+  <!-- Background Elements -->
+  <div class="absolute inset-0 opacity-5">
+    <div
+      class="absolute top-1/3 left-20 w-80 h-80 bg-primary-500 rounded-full blur-3xl"
+    ></div>
+    <div
+      class="absolute bottom-1/3 right-20 w-96 h-96 bg-primary-600 rounded-full blur-3xl"
+    ></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-16 animate-on-scroll">
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+        Get In <span class="gradient-text">Touch</span>
+      </h2>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+        Ready to start your next project? Let's discuss how we can help you
+        achieve your goals.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-16 items-start">
+      <!-- Contact Form -->
+      <div class="animate-on-scroll">
+        <div
+          class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8"
+        >
+          <h3 class="text-2xl font-bold text-white mb-8">Send us a message</h3>
+
+          <form
+            [formGroup]="contactForm"
+            (ngSubmit)="onSubmit()"
+            class="space-y-6"
+          >
+            <!-- Name Field -->
+            <div class="space-y-2">
+              <label for="name" class="block text-sm font-medium text-gray-300">
+                Full Name <span class="text-primary-500">*</span>
+              </label>
+              <input
+                id="name"
+                type="text"
+                formControlName="name"
+                class="w-full px-4 py-3 bg-dark-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none transition-colors duration-300"
+                placeholder="Enter your full name"
+                [class.border-red-500]="isFieldInvalid('name')"
+                [class.border-green-500]="isFieldValid('name')"
+              />
+              @if(isFieldInvalid('name')){
+              <div class="text-red-400 text-sm mt-1">
+                @if(contactForm.get('name')?.errors?.['required']){
+                <span>Name is required</span>
+                } @if(contactForm.get('name')?.errors?.['minlength']){
+                <span>Name must be at least 2 characters</span>
+                } @if(contactForm.get('name')?.errors?.['whitespace']){
+                <span>Name cannot be empty</span>
+                }
+              </div>
+              }
+            </div>
+
+            <!-- Email Field -->
+            <div class="space-y-2">
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-300"
+              >
+                Email Address <span class="text-primary-500">*</span>
+              </label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                class="w-full px-4 py-3 bg-dark-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none transition-colors duration-300"
+                placeholder="Enter your email address"
+                [class.border-red-500]="isFieldInvalid('email')"
+                [class.border-green-500]="isFieldValid('email')"
+              />
+              @if(isFieldInvalid('email')){
+              <div class="text-red-400 text-sm mt-1">
+                @if (contactForm.get('email')?.errors?.['required']) {
+                <span>Email is required</span>
+                } @if(contactForm.get('email')?.errors?.['email']){
+                <span>Please enter a valid email address</span>
+                }
+              </div>
+              }
+            </div>
+
+            <!-- Subject Field -->
+            <div class="space-y-2">
+              <label
+                for="subject"
+                class="block text-sm font-medium text-gray-300"
+              >
+                Subject <span class="text-primary-500">*</span>
+              </label>
+              <select
+                id="subject"
+                formControlName="subject"
+                class="w-full px-4 py-3 bg-dark-700 border border-gray-600 rounded-lg text-white focus:outline-none transition-colors duration-300"
+                [class.border-red-500]="isFieldInvalid('subject')"
+                [class.border-green-500]="isFieldValid('subject')"
+              >
+                <option value="" disabled>Select a subject</option>
+                <option value="general">General Inquiry</option>
+                <option value="project">New Project</option>
+                <option value="support">Support</option>
+                <option value="partnership">Partnership</option>
+                <option value="other">Other</option>
+              </select>
+              @if(isFieldInvalid('subject') &&
+              contactForm.get('subject')?.errors?.['required']){
+              <div class="text-red-400 text-sm mt-1">
+                <span>Please select a subject</span>
+              </div>
+              }
+            </div>
+
+            <!-- Message Field -->
+            <div class="space-y-2">
+              <label
+                for="message"
+                class="block text-sm font-medium text-gray-300"
+              >
+                Message <span class="text-primary-500">*</span>
+              </label>
+              <textarea
+                id="message"
+                formControlName="message"
+                rows="6"
+                class="w-full px-4 py-3 bg-dark-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none transition-colors duration-300 resize-none"
+                placeholder="Tell us about your project or inquiry..."
+                [class.border-red-500]="isFieldInvalid('message')"
+                [class.border-green-500]="isFieldValid('message')"
+              ></textarea>
+              @if(isFieldInvalid('message')){
+
+              <div class="text-red-400 text-sm mt-1">
+                @if(contactForm.get('message')?.errors?.['required']){
+                <span>Message is required</span>
+                } @if(contactForm.get('message')?.errors?.['minlength']){
+                <span>Message must be at least 10 characters</span>
+                } @if(contactForm.get('message')?.errors?.['whitespace']){
+                <span>Message cannot be empty</span>
+                }
+              </div>
+              }
+              <div class="text-right text-sm text-gray-400">
+                {{ getMessageLength() }}/500 characters
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              [disabled]="isSubmitting() || contactForm.invalid"
+              class="w-full cursor-pointer px-6 py-4 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 btn-hover-effect"
+              [class.opacity-50]="contactForm.invalid"
+            >
+              @if(isSubmitting()){
+              <span class="flex items-center justify-center">
+                <svg
+                  class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Sending...
+              </span>
+
+              }@else {
+              <span class="flex items-center justify-center">
+                Send Message
+                <svg
+                  class="w-5 h-5 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                  ></path>
+                </svg>
+              </span>
+              }
+            </button>
+          </form>
+
+          <!-- Success/Error Messages -->
+          @if(submitStatus() === 'success'){
+          <div
+            class="mt-6 p-4 bg-green-500/20 border border-green-500/50 rounded-lg"
+            [@fadeIn]
+          >
+            <div class="flex items-center text-green-400">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              Message sent successfully! We'll get back to you soon.
+            </div>
+          </div>
+          }@else if (submitStatus() === 'error') {
+          <div
+            class="mt-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg"
+            [@fadeIn]
+          >
+            <div class="flex items-center text-red-400">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              Failed to send message. Please try again later.
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="animate-on-scroll space-y-8">
+        <!-- Contact Details -->
+        <div
+          class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8"
+        >
+          <h3 class="text-2xl font-bold text-white mb-8">
+            Contact Information
+          </h3>
+
+          <div class="space-y-6">
+            @for (contact of contactInfo; track contact.title) {
+            <div
+              class="flex items-start space-x-4 p-4 rounded-lg hover:bg-white/5 transition-colors duration-300"
+            >
+              <div
+                class="flex-shrink-0 w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center"
+              >
+                <lucide-angular
+                  [img]="contact.icon"
+                  name="my-icon"
+                  class="w-6 h-6 text-white"
+                ></lucide-angular>
+              </div>
+              <div>
+                <h4 class="font-semibold text-white mb-1">
+                  {{ contact.title }}
+                </h4>
+                <p class="text-gray-300">{{ contact.value }}</p>
+                @if(contact.subtitle){
+                <p class="text-sm text-gray-400 mt-1">{{ contact.subtitle }}</p>
+                }
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+
+        <!-- Business Hours -->
+        <div
+          class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8"
+        >
+          <h3 class="text-xl font-bold text-white mb-6">Business Hours</h3>
+          <div class="space-y-3">
+            @for (hours of businessHours; track hours.day) {
+            <div class="flex justify-between items-center">
+              <span class="text-gray-300">{{ hours.day }}</span>
+              <span class="text-white font-medium">{{ hours.time }}</span>
+            </div>
+            }
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div
+          class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8"
+        >
+          <h3 class="text-xl font-bold text-white mb-6">Follow Us</h3>
+          <div class="flex space-x-4">
+            @for (social of socialLinks; track social.name) {
+            <a
+              href="#"
+              class="w-12 h-12 bg-primary-600 hover:bg-primary-700 rounded-lg flex items-center justify-center transition-colors duration-300 transform hover:scale-110"
+              [title]="social.name"
+            >
+              <lucide-angular
+                class="w-6 h-6 text-white"
+                [img]="social.icon"
+              ></lucide-angular>
+            </a>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
