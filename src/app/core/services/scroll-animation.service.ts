@@ -17,7 +17,7 @@ export class ScrollAnimationService implements OnDestroy {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
-          if (entry) {
+          if (entry.isIntersecting) {
             entry.target.classList.add('visible');
           }
         })
