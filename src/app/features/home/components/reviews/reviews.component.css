@@ -1,0 +1,21 @@
+.two-border-animation {
+  position: relative;
+}
+.two-border-animation svg {
+  position: absolute;
+}
+.two-border-animation .line {
+  stroke-dasharray: 260;
+  stroke-width: 2px;
+  fill: transparent;
+  stroke: rgba(200, 30, 30, 0.4);
+  animation: svgAnimation 2.5s linear infinite;
+}
+@keyframes svgAnimation {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
