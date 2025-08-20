@@ -146,7 +146,10 @@
     <!-- Additional Features Section -->
     <div class="mt-20 grid md:grid-cols-3 gap-8 animate-on-scroll">
       @for (feature of features; track feature.title) {
-      <div class="card-animation" [style.animation-delay.ms]="$index * 150">
+      <div
+        class="card-animation rounded-xl"
+        [style.animation-delay.ms]="$index * 150"
+      >
         <div
           class="inner text-center p-8 rounded-xl bg-[#353535] backdrop-blur-sm border border-white/10 transition-all duration-300 transform hover:scale-105"
         >
